@@ -233,7 +233,7 @@ void findStationaryDistribution(t_matrix M) {
 
         next = multiplyMatrix(&current, &M);
 
-        diff = diffmatrix(&next, &current);
+        diff = diffMatrix(&next, &current);
 
         free(current.value);
         current = next;
