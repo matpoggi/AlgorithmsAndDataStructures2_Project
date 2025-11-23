@@ -1,0 +1,1 @@
+This file is only used to make sure the output directory is kept in the .zip file
