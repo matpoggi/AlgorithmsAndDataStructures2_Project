@@ -5,6 +5,15 @@
 #include "utils.h"
 
 t_class **arrayClass(adjacency_list *graph, t_partition *partition) {
+
+    /**
+    * @brief Creates an array mapping each vertex to its corresponding class.
+    * @param graph Pointer to the adjacency list representing the graph.
+    * @param partition Pointer to the partition containing the strongly connected components.
+    * @return An array of pointers to t_class, where each element corresponds to a vertex
+    *         and points to the class it belongs to.
+    */
+
 	t_class **verticesClass = malloc(graph->size * sizeof(t_class*));
 
     for (int i = 0; i < graph->size; i++) {
@@ -23,6 +32,16 @@ t_class **arrayClass(adjacency_list *graph, t_partition *partition) {
 }
 
 t_link_array *initLinkArray(adjacency_list *graph, t_partition *partition) {
+
+    /**
+    * @brief Initializes an array of links between classes based on the graph.
+    * @param graph Pointer to the adjacency list representing the graph.
+    * @param partition Pointer to the partition containing the strongly connected components.
+    * @return Pointer to a t_link_array structure containing all unique links
+    *         between different classes.
+    * @note Only links between different classes are stored; duplicates are avoided.
+    */
+
 	t_class **array = arrayClass(graph,partition);
 
     t_link_array *linkArray = malloc(sizeof(t_link_array));
@@ -62,6 +81,15 @@ t_link_array *initLinkArray(adjacency_list *graph, t_partition *partition) {
 }
 
 void textFileHasse(t_partition *partition, t_link_array *linkArray) {
+
+    /**
+    * @brief Generates a text file representing the Hasse diagram of a partition.
+    * @param partition Pointer to the partition containing the strongly connected components.
+    * @param linkArray Pointer to the array of links between classes.
+    * @return void
+    * @note The function frees the memory of linkArray after writing.
+    */
+
     FILE *file = fopen("../output/textFileHasse.txt", "w");
     fprintf(file, "--- \nconfig: \n   layout: elk \n   theme: neo \n   look: neo \n---\n\nflowchart LR\n");
 
@@ -99,8 +127,16 @@ void textFileHasse(t_partition *partition, t_link_array *linkArray) {
     fclose(file);
 }
 
-void removeTransitiveLinks(t_link_array *p_link_array)
-{
+void removeTransitiveLinks(t_link_array *p_link_array){
+
+    /**
+    * @brief Removes transitive links from a link array to simplify the Hasse diagram.
+    * @param p_link_array Pointer to the link array to process.
+    * @return void
+    * @note A link from A to C is removed if there exists a vertex B such that
+    *       links A → B and B → C exist, preserving only the direct relationships.
+    */
+
     int i = 0;
     while (i < p_link_array->log_size)
     {
@@ -143,8 +179,17 @@ void removeTransitiveLinks(t_link_array *p_link_array)
     }
 }
 
-
 void displayCharacteristics(t_partition *partition, t_link_array *linkArray) {
+
+    /**
+    * @brief Displays the characteristics of each class in a partition.
+    * @param partition Pointer to the partition containing the strongly connected components.
+    * @param linkArray Pointer to the array of links between classes.
+    * @return void
+    * @note Prints each class, identifies whether it is transient or persistent,
+    *       and indicates whether the overall Markov graph is irreducible.
+    */
+
     for (int i = 0; i < partition->nbClasses; i++) {
         printf("C%d : {",i+1);
 

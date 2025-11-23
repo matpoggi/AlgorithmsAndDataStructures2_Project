@@ -16,7 +16,7 @@ int main() {
     PRINT_SECTION("INITIALIZATION");
 
     char filepath[200];
-    char prefix[] = "..\\data\\";
+    char const prefix[] = "..\\data\\";
     char fullpath[250];
 
     printf("Please enter the file name (e.g., exemple_meteo.txt):\n-> ");
@@ -136,7 +136,6 @@ int main() {
     freeMatrix(&M);
     freeMatrix(&M3);
     freeMatrix(&M7);
-
 
     return 0;
 }

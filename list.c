@@ -4,6 +4,7 @@
 #include "utils.h"
 
 t_cell* createCell(int end, float proba) {
+
     /**
     * @brief Allocate and initialize a singly linked-list cell representing an outgoing edge.
     * Creates a new t_cell with the given destination vertex index and transition probability. Sets next to NULL. Returns the allocated pointer. Terminates the program if allocation fails.
@@ -26,6 +27,7 @@ t_cell* createCell(int end, float proba) {
 }
 
 t_list createEmptyList() {
+
     /**
     * @brief Create and return an empty linked list.
     * Initializes a t_list with head set to NULL and returns it by value.
@@ -39,6 +41,7 @@ t_list createEmptyList() {
 }
 
 void addCell(t_list *list, int end, float proba) {
+
     /**
     * @brief Append a new cell (end, proba) to the end of a list.
     * Allocates a cell using createCell and inserts it at the tail. If the list is empty, it becomes the head.
@@ -65,6 +68,7 @@ void addCell(t_list *list, int end, float proba) {
 }
 
 void displayList(t_list *list) {
+
     /**
     * @brief Print the list as arrows with (end, proba) pairs.
     * Iterates through the list, printing each cell to stdout, followed by a newline.
@@ -81,6 +85,7 @@ void displayList(t_list *list) {
 }
 
 adjacency_list createEmptyAdjacencyList(int size) {
+
     /**
     * @brief Create an empty adjacency list of given size.
     * Allocates an array of t_list, initializes each entry to empty. Returns the adjacency_list. Terminates the program if allocation fails.
@@ -107,6 +112,7 @@ adjacency_list createEmptyAdjacencyList(int size) {
 }
 
 void displayAdjacencyList(adjacency_list adjlist) {
+
     /**
     * @brief Display the entire adjacency list vertex by vertex.
     * For each vertex, prints its index and the list of outgoing edges.
@@ -122,6 +128,7 @@ void displayAdjacencyList(adjacency_list adjlist) {
 }
 
 adjacency_list readGraph(const char *filename) {
+
     /**
     * @brief Read a graph from a text file and construct its adjacency list.
     * Expects vertex count in first token. Each subsequent line: "start end proba" (all 1-based indices). Sorts each vertex’s list by ascending probability after reading.
@@ -174,6 +181,7 @@ adjacency_list readGraph(const char *filename) {
 }
 
 void isMarkov (adjacency_list adjlist) {
+
     /**
     * @brief Check whether the graph is Markovian (sum of outgoing probabilities ≈ 1 for each vertex).
     * Sums outgoing probabilities for each vertex and checks if sum is in [0.99, 1.00]. Confirms if the graph passes or not.
@@ -208,6 +216,7 @@ void isMarkov (adjacency_list adjlist) {
 }
 
 void drawGraph(adjacency_list adjlist) {
+
     /**
     * @brief Generate a Mermaid flowchart file describing the graph for visualization.
      * Writes to "../output/graph.txt" a diagram with layout and theme information, nodes, and edges labeled by probability. Uses getID(int) to label vertices.
@@ -256,6 +265,14 @@ void drawGraph(adjacency_list adjlist) {
 }
 
 void removeCell(t_cell *cell, t_list *list) {
+
+    /**
+    * @brief removes a given cell from a given list
+    * @param cell : pointer to the cell to be removed
+    * @param list : pointer to the list from wich the cell is to be removed
+    * @return void
+    */
+
     if (!list || !list->head || !cell) return;
 
     if (cell == list->head) {
@@ -278,10 +295,14 @@ void removeCell(t_cell *cell, t_list *list) {
     }
 }
 
+t_list sortList(t_list list){
 
-// Dans list.c
+    /**
+    * @brief sorts the given list in a increasing order
+    * @param list : the given list to be sorted
+    * @return t_list the sorted list : sorted_list
+    */
 
-t_list sortList(t_list list) {
     t_list sorted_list = createEmptyList();
 
     while (list.head != NULL) {
