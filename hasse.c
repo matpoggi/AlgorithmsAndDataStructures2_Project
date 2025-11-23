@@ -62,9 +62,8 @@ t_link_array *initLinkArray(adjacency_list *graph, t_partition *partition) {
 }
 
 void textFileHasse(t_partition *partition, t_link_array *linkArray) {
-    FILE *file = fopen("textFileHasse.txt", "wt");
-
-    fprintf(file, "---\nconfig:\n\tlayout: elk\n\ttheme: neo\n\tlook: neo\n---\n\nflowchart LR\n");
+    FILE *file = fopen("../output/textFileHasse.txt", "w");
+    fprintf(file, "--- \nconfig: \n   layout: elk \n   theme: neo \n   look: neo \n---\n\nflowchart LR\n");
 
     for (int i = 0; i < partition->nbClasses; i++) {
         fprintf(file,"%s[\"{",getID(i+1));

@@ -109,6 +109,28 @@ int main() {
         }
     }
 
+    // ---------------------------------------------------------
+    // PART 3 (BONUS) : PÉRIODICITY
+    // ---------------------------------------------------------
+    PRINT_SECTION("PART 3 (BONUS): PERIODICITY ANALYSIS");
+
+    for (int i = 0; i < partition->nbClasses; i++) {
+        if (partition->classes[i].nbVertices > 0) {
+
+            t_matrix subM = subMatrix(M, partition, i);
+            int d = getPeriod(subM);
+
+            printf("Component C%d (Size: %d) -> Period d = %d\n", i + 1, partition->classes[i].nbVertices, d);
+
+            if (d == 1) {
+                printf("   -> This class is Aperiodic (Regular).\n");
+            } else {
+                printf("   -> This class is Periodic.\n");
+            }
+            freeMatrix(&subM);
+        }
+    }
+
     PRINT_SECTION("END OF PROGRAM");
 
     freeMatrix(&M);

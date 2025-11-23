@@ -190,3 +190,58 @@ t_matrix subMatrix(t_matrix matrix, t_partition *part, int class_index) {
 
     return sub;
 }
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int gcd_array(int *vals, int nbvals) {
+    if (nbvals == 0) return 0;
+    int result = vals[0];
+    for (int i = 1; i < nbvals; i++) {
+        result = gcd(result, vals[i]);
+        if (result == 1) return 1;
+    }
+    return result;
+}
+
+int getPeriod(t_matrix sub_matrix) {
+    int n = sub_matrix.row;
+
+    int *periods = malloc(n * n * sizeof(int));
+    int period_count = 0;
+
+    t_matrix power_matrix = copyMatrix(&sub_matrix);
+    t_matrix temp;
+
+    for (int cpt = 1; cpt <= n; cpt++) {
+
+        int diag_nonzero = 0;
+        for (int i = 0; i < n; i++) {
+            if (power_matrix.value[i][i] > 0.00001) {
+                diag_nonzero = 1;
+                break;
+            }
+        }
+        if (diag_nonzero) {
+            periods[period_count++] = cpt;
+        }
+
+        temp = multiplyMatrix(&power_matrix, &sub_matrix);
+
+        freeMatrix(&power_matrix);
+        power_matrix = temp;
+    }
+
+    freeMatrix(&power_matrix);
+
+    int result = gcd_array(periods, period_count);
+
+    free(periods);
+    return result;
+}

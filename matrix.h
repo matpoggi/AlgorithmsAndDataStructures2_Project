@@ -20,5 +20,6 @@ t_matrix powerMatrix(t_matrix M, int p);
 void freeMatrix(t_matrix *matrix);
 void findStationaryDistribution(t_matrix M);
 t_matrix subMatrix(t_matrix matrix, t_partition *part, int class_index);
+int getPeriod(t_matrix sub_matrix);
 
 #endif // MATRIX_H
